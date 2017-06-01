@@ -1,0 +1,136 @@
+body,html{
+    height: 100%;
+}
+body{
+    background: url(../images/pos1.jpg)no-repeat 0 0;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+}
+.pos{
+    height: 100%;
+}
+.btn_background{
+    background: url(../images/42.png)no-repeat 0 0;
+    background-size: contain;
+    padding:6px 30px;
+}
+.img_width{
+    width: 30px ;
+    height: 30px ;
+
+}
+.img_width_1{
+    width: 100%;
+}
+.img_width_2{
+    width: 100%;
+}
+.text_align_center{
+    text-align: center;
+}
+.padding_top12{
+    padding-top: 12px;
+
+}
+.padding_top17{
+    padding-top: 5.5px;
+}
+.pdiing_top8{
+    padding-top: 8px;
+}
+.pdiing_top23{
+    padding-top: 23px;
+    background: #fff;
+}
+.padding_bottom23{
+    padding-bottom: 23px;
+}
+.over_flow{
+    overflow: hidden;
+}
+.padding_left_right{
+    padding-left: 0;
+    padding-right: 0;
+}
+.margin_left_right{
+    margin: 0 15px;
+}
+.tiaoma_height{
+    padding-top: 18px;
+}
+.product_border{
+    border: 1px solid #f4f4f4;
+}
+.margin{
+    margin: 3px;
+}
+.color_red{
+    color: red;
+}
+.min_height{
+    min-height: 584px;
+}
+.position_relative{
+    position: relative;
+}
+.position_absolute{
+    position: absolute;
+    top: 119px;
+    left: 0;
+    right: 0;
+    bottom: 98px;
+}
+.position_absolute1{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.over_flow_auto{
+    overflow: auto;
+}
+.button{
+    padding: 0;
+    width: 100%;
+}
+.margin_bottom{
+    margin-bottom: 7px;
+}
+.bottom_height .button-giant{
+    width: 100%;
+}
+.button-giant{
+    font-size: 14px;
+}
+.over_flow .button p{
+    margin: 0;
+}
+.button-giant,button{
+    line-height: 22px;
+}
+#button{
+    line-height: 35px;
+    font-size: 18px;
+}
+/*============修改密码 退出登录===========*/
+.modal_content_padding{
+    padding: 47px 70px;
+}
+.modal_content_padding a:first-child{
+    margin-right: 9px;
+}
+
+
+/*结算*/
+.modal-content{
+    width: 500px;
+    min-height: 300px;
+}
+.margin_top_bottom{
+    margin: 7px 0;
+
+}
+.cursor_pointer{
+    cursor: pointer;
+}

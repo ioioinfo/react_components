@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Flash</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+        <meta name="format-detection" content="telephone=no" />
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/newflash.css">
+
+
+        <script src="js/react.min.js"></script>
+        <script src="js/react-dom.min.js"></script>
+        <script src="js/browser.min.js"></script>
+
+        <script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
+
+    </head>
+    <body>
+        <div id="Flash"></div>
+
+        <script type="text/babel">
+        class Lunbo extends React.Component {
+            constructor(props) {
+                super(props);
+                this.jump=this.jump.bind(this);
+                this.back = this.back.bind(this);
+                this.move = this.move.bind(this);
+                this.onTouchStart=this.onTouchStart.bind(this);
+                this.onTouchMove=this.onTouchMove.bind(this);
+                this.onTouchEnd=this.onTouchEnd.bind(this);
+                // 初始化一个空对象
+                this.state = {imgItems: this.props.picture,selected:0,touchPage:0,change:0};
+            }
+
+
+            jump(){
+                //当前显示图片
+                var selected = this.state.selected;
+                var imgLength = this.state.imgItems.length;
+                var widthUl = $(window).width();
+
+                var next1 = selected + 1;
+                if (next1 >= imgLength) {
+                    next1 = next1 - imgLength;
+                }
+
+                //循环所有图片
+                $(".imgul li").each(function(index,element) {
+                    if (index == selected) {
+                        $(this).css("z-index","10");
+                        $(this).css("transform","translate3d("+(-widthUl)+"px, 0px, 0px)");
+                        $(this).css("transition","all 300ms ease");
+                    } else if (index == next1) {
+                        $(this).css("z-index","10");
+                        $(this).css("transform","translate3d(0px, 0px, 0px)");
+                        $(this).css("transition","all 300ms ease");
+                    } else {
+                        $(this).css("z-index","9");
+                        $(this).css("transform","translate3d("+(widthUl)+"px, 0px, 0px)");
+                        $(this).css("transition","all 0ms ease");
+                    }
+                });
+
+                this.setState({selected:next1});
+            }
+            //向右移动一张
+        back(){
+            //当前显示图片
+            var selected = this.state.selected;
+            var imgLength = this.state.imgItems.length;
+            var widthUl = $(window).width();
+
+            var prev1 = selected - 1;
+            if (prev1 < 0) {
+                prev1 = imgLength - 1;
+            }
+
+            //循环所有图片
+            $(".imgul li").each(function(index,element) {
+                if (index == selected) {
+                    $(this).css("z-index","10");
+                    $(this).css("transform","translate3d("+(widthUl)+"px, 0px, 0px)");
+                    $(this).css("transition","all 300ms ease");
+                } else if (index == prev1) {
+                    $(this).css("z-index","10");
+                    $(this).css("transform","translate3d(0px, 0px, 0px)");
+                    $(this).css("transition","all 300ms ease");
+                } else {
+                    $(this).css("z-index","9");
+                    $(this).css("transform","translate3d("+(-widthUl)+"px, 0px, 0px)");
+                    $(this).css("transition","all 0ms ease");
+                }
+            });
+
+            this.setState({selected:prev1});
+        }
+            move(change){
+                var widthUl = $(window).width();
+                if(change<-widthUl/4){
+                    this.jump();
+                }else if (change>widthUl/4) {
+                    this.back();
+                }
+            }
+            componentDidMount() {
+                $(".imgul li").css("width",$(window).width());
+
+                var imgLIheight = 0.3125*$(window).width();
+                $(".imgul").css("height",imgLIheight);
+                var imgLength = this.state.imgItems.length;
+                var widthUl = $(window).width();
+                //循环所有图片
+                $(".imgul li").each(function(index,element) {
+                    if (index == 1) {
+                        $(this).css("transform","translate3d("+widthUl+"px, 0px, 0px)");
+                        $(this).css("transition","all 0ms ease");
+                    } else if (index == imgLength-1) {
+                        $(this).css("z-index","10");
+                        $(this).css("transform","translate3d("+(-widthUl)+"px, 0px, 0px)");
+                        $(this).css("transition","all 0ms ease");
+                    }
+                });
+
+                this.timer = setInterval(this.jump,1500);
+
+
+            }
+
+            // 开始
+            onTouchStart(e){
+                clearInterval(this.timer);
+                var touch = e.targetTouches[0];//touches数组对象获得屏幕上所有的touch，取第一个touch
+                var touchPageStart=touch.pageX; //获取当前最新的坐标
+                this.setState({touchPage:touchPageStart});
+                // console.log(touchPage);
+            }
+
+            // 移动中
+            onTouchMove(e){
+                var touchPageMove=e.targetTouches[0].pageX; //获取当前最新的坐标
+                // console.log(touchPage);
+                var touchPage = this.state.touchPage;
+                var change = touchPageMove-touchPage;
+
+                this.setState({change:change});
+            }
+            // 移动结束
+            onTouchEnd(e){
+                var change = this.state.change;
+                this.move(change);
+            }
+            render() {
+                return (
+                    <div className="flashWrap">
+                        <ul className="imgul" onTouchStart={this.onTouchStart} onTouchMove ={this.onTouchMove } onTouchEnd={this.onTouchEnd}>
+                        {this.state.imgItems.map(item => (
+                            <FlashImgLi item={item}/>))
+                        }
+                        </ul>
+
+                        <div className="pointul">
+                        {this.state.imgItems.map((item,index) => (
+                            <FlashPointLi selected={this.state.selected} index={index} />))
+                        }
+                        </div>
+
+                    </div>
+                );
+            }
+
+
+        }
+        // 图片
+        class FlashImgLi extends React.Component {
+            componentDidMount() {
+                $(".imgul li").css("width",$(window).width());
+                $(".imgul li img").css("width",$(window).width());
+            }
+            render() {
+                var imgsec = this.props.item.img;
+                return(
+                    <li className="pull-left"><a href="#"><img src={imgsec} className="img-responsive" alt="" /></a></li>
+                );
+            }
+
+        }
+
+        // 点
+        class FlashPointLi extends React.Component {
+            render() {
+
+                var c = "";
+                if(this.props.selected == this.props.index){
+                    c = "on";
+                }
+                return (
+                    <span className={c}></span>
+                );
+            }
+
+        }
+        var picture = [{img:'images/htad1.jpg'}
+                      ,{img:'images/htad2.jpg'}
+                      ,{img:'images/htad3.jpg'}
+                      ];
+
+        ReactDOM.render(
+          <Lunbo picture={picture} />,
+          document.getElementById("Flash")
+        )
+        </script>
+    </body>
+</html>

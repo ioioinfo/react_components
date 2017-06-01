@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+    <script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
+<script type="text/JavaScript" src="jquery-latest.js></script>
+<script>
+    (function($){
+    $.fn.selInit = function(){return $(this).html("<option>请选择</option>");};
+    $.area = function(){
+            $("#province").selInit();
+            $("#city").selInit();
+            $("#county").selInit();
+            var area = {
+                    北京:{北京:"东城,西城,海淀,宣武,丰台"},
+                    江苏:{南京:"江宁,六合,下关,浦口",无锡:"北塘,滨湖,江阴,宜兴"},
+                    广东:{广州:"越秀区,东山区,海珠区,荔湾区,天河区,白云区,黄埔区,芳村区,番禺区,花都区,增城市,从化市",揭阳:"榕城区,揭东县,揭西县,普宁市"}
+            };
+            $.each(area,function(p){$("#province").append("<option>"+p+"</option>");});
+            $("#province").change(function(){
+                    $("#city").selInit();
+                    $("#county").selInit();
+                    $.each(area,function(p,x){
+                            if($("#province option:selected").text() == p)
+                            {
+                                    $.each(x,function(c,cx){
+                                            $("#city").append("<option>"+c+"</option>");
+                                    });
+
+                                    $("#city").bind("change",function(){
+                                            $("#county").selInit();
+                                            $.each(x,function(c,cx){
+                                                    if($("#city option:selected").text() == c)
+                                                            {
+                                                                    $.each(cx.split(","),function(){
+                                                                            $("#county").append("<option>"+this+"</option>");
+                                                                    });
+                                                            }
+                                            });
+                                    });
+                            }
+                    });
+            });
+    };
+    })(jQuery);
+    $(function(){
+            $("select").css("width","100px");
+            $.area();
+            });
+</script>
+</head>
+<body>
+    <select id="province"><option>请选择</option></select>
+       <select id="city"><option>请选择</option></select>
+       <select id="county"><option>请选择</option></select>
+</body>
+</html>

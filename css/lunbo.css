@@ -1,13 +1,11 @@
-@media screen and (max-width:640px){
+
     *{
         padding: 0;
         margin: 0;
     }
     /*轮播*/
     .lunbo{
-      width: 375px;
-      height: 117px;
-      overflow: hidden;
+      width: 100%;
       position: relative;
     }
     .lunbo_ul{
@@ -16,26 +14,17 @@
       overflow: hidden;
       border: none;
     }
-    .lunbo_ul_one{
-      position: absolute;
-      left: 0;
-      top: 0;
-    }
-    .lunbo_ul_two{
-      position: absolute;
-      /*left: -1500px;*/
-      top: 0;
-    }
     .lunbo li{
-      width: 375px;
-      height: 117px;
+      width: 100%;
       list-style: none;
       float: left;
+      position: absolute;
+      top: 0;
+      left: 0;
 
     }
     .lunbo li img{
-      width: 375px;
-      height: 117px;
+      width: 100%;
     }
     .lunbo_dian{
       width: 100%;
@@ -56,5 +45,3 @@
     .lunbo_dian span.on{
       background: #fff;
     }
-
-}

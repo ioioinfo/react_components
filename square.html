@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/mermaid.css">
+
+
+        <script src="js/react.min.js"></script>
+        <script src="js/react-dom.min.js"></script>
+        <script src="js/browser.min.js"></script>
+
+        <script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/mermaid.min.js"></script>
+        <script src="js/mermaidAPI.min.js"></script>
+
+    </head>
+    <body>
+        <div id="square" className="container-fluid"></div>
+
+        <script type="text/babel">
+
+        // 框架
+        class Wrap extends React.Component {
+            componentDidMount() {
+                mermaid.initialize({startOnLoad:true});
+            }
+          render() {
+              return (
+                  <div className="square">
+                    <div className="mermaid">
+                        graph TD;
+                        A[这是第一个]--这是第一个-->B[这是第二个];
+                        B[这是第三个]--这是第二个-->C[这是第四个];
+                        C[这是第五个]--这是第三个-->D[这是第六个];
+                        click A callback "Tooltip for a callback";
+                        click B callback "Tooltip for a callback";
+                        click C callback "Tooltip for a callback";
+                    </div>
+                  </div>
+
+
+              );
+          }
+        };
+
+        // 返回到页面
+        ReactDOM.render(
+          <Wrap/>,
+          document.getElementById("square")
+        );
+        </script>
+        <script>
+            var callback = function(){
+                alert('A callback was triggered');
+                }
+        </script>
+    </body>
+</html>
