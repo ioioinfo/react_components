@@ -94,10 +94,12 @@ class Lunbo extends React.Component {
         var widthUl = $(window).width();
         //循环所有图片
         $(".imgul li").each(function(index,element) {
-            if (index == 1) {
+            if (index == 0) {
+                $(this).css("z-index","10");
+            } else if (index == 1) {
                 $(this).css("transform","translate3d("+widthUl+"px, 0px, 0px)");
                 $(this).css("transition","all 0ms ease");
-            } else if (index !=0 && index == imgLength-1) {
+            } else if (index == imgLength-1) {
                 $(this).css("z-index","10");
                 $(this).css("transform","translate3d("+(-widthUl)+"px, 0px, 0px)");
                 $(this).css("transition","all 0ms ease");
