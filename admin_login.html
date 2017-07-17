@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>表格</title>
+    <link rel="stylesheet" href="css/weui.css">
+    <link rel="stylesheet" href="css/admin_login.css">
+
+    <script src="js/react.min.js"></script>
+    <script src="js/react-dom.min.js"></script>
+    <script src="js/browser.min.js"></script>
+    <script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+
+    <script type="text/babel">
+    // 右侧下部表格
+    class Admin extends React.Component {
+      render() {
+        return (
+          <div className="admin_wrap">
+            <div className="admin">
+
+            </div>
+            <div className="admin_in">
+              <p className="admin_title admin_width">xxx系统</p>
+
+              <div className="admin_width admin_back" id="searchBar">
+                  <form className="weui-search-bar__form">
+                      <div className="weui-search-bar__box">
+                          <input type="text" className="weui-search-bar__input" id="searchInput" placeholder="请输入帐号" />
+                          <span className="weui-icon-clear" id="searchClear"></span>
+                          <img src="images/zhanghu.png" className="admin_icon1" />
+                      </div>
+                      <div className="weui-search-bar__box password">
+                          <input type="password" className="weui-search-bar__input" id="searchInput" placeholder="请输入帐号" />
+                          <img src="images/password.png" className="admin_icon2" />
+                      </div>
+                  </form>
+                  <div className="weui-footer">
+                      <p className="weui-footer__text admin_left">忘记密码？</p>
+                      <p className="weui-footer__text admin_right">用户登录</p>
+                  </div>
+              </div>
+
+              <button className="admin_button">登 录</button>
+            </div>
+          </div>
+        );
+      }
+    };
+
+      // 返回到页面
+      ReactDOM.render(
+        <Admin/>,
+        document.getElementById("example")
+      );
+    </script>
+  </body>
+</html>
