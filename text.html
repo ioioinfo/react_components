@@ -1,23 +1,23 @@
-<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title></title>
-    </head>
-    <body>
-        <script type="text/javascript">
-        var num1 = 0;
-        var num2 = 0;
+  <head>
+    <meta charset="utf-8">
+    <script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="js/sound.js"></script>
+  
+  </head>
+  <body>
+    <button id="playSound">Play Sound</button>
 
-        for (var i = 1; i <100; i++) {
-            if(i%2==0){
-                num1 =num1+i;
-            }else {
-                num2 = num2+i;
-            }
-            console.log(num2);
-        }
+    <script type="text/javascript">
+      $(function(){
+        var music = Music({"audio_container":"add_music"});
 
-        </script>
-    </body>
+        music.registerSound('music.mp3','audioId');
+
+        $('#playSound').click(function(){
+          music.play('audioId');
+        })
+      })
+    </script>
+  </body>
 </html>

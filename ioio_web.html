@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/ioio_web.css">
+    <script src="js/react.min.js"></script>
+    <script src="js/react-dom.min.js"></script>
+    <script src="js/browser.min.js"></script>
+    <script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+  </head>
+  <body>
+      <div id="ioio_web"></div>
+      <script type="text/javascript">
+        var windowHeight;
+      </script>
+      <script type="text/babel">
+        class IoIo extends React.Component {
+            constructor(props) {
+              super(props);
+              // 初始化一个空对象
+              this.state = {};
+            }
+            componentDidMount() {
+
+            }
+            render() {
+              return (
+                <div className="ioio_web">
+                  <PartOne/>
+                  <PartTwo/>
+                  <PartThree/>
+                  <PartFour/>
+                  <PartFive/>
+                  <PartSix/>
+                </div>
+              );
+            }
+        };
+
+        class PartOne extends React.Component {
+            constructor(props) {
+              super(props);
+              // 初始化一个空对象
+              this.state = {};
+            }
+            componentDidMount() {
+              windowHeight = $(window).height();
+              var PartOnepadding = (windowHeight - 87)/2;
+              $('#partone_ioio_web').css('height',windowHeight,);
+              $('.partone_back').css('height',windowHeight);
+              $('.partone_ioio_web_word').css('top',PartOnepadding);
+            }
+            render() {
+              return (
+                <div id="partone_ioio_web">
+                  <nav className="partone_ioio_web_nav">
+                    <p><a href="#parttwo_ioio_web">成功案例</a></p>|
+                    <p><a href="#partthree_ioio_web">公司文化</a></p>|
+                    <p><a href="#partfour_ioio_web">新闻中心</a></p>|
+                    <p><a href="#partfive_ioio_web">加入我们</a></p>|
+                    <p><a href="#partsix_ioio_web">联系我们</a></p>
+                  </nav>
+                  <div className="partone_ioio_web_nav_back"></div>
+                  <div className="partone_back"></div>
+                  <div className="partone_ioio_web_word animation1" id="">
+                    <p className="partone_ioio_web_word1">数据驱动未来</p>
+                    <p className="partone_ioio_web_word2">多年的软件定制经验，对市场的深入了解</p>
+                  </div>
+                </div>
+              );
+            }
+        };
+
+        class PartTwo extends React.Component {
+            constructor(props) {
+              super(props);
+              // 初始化一个空对象
+              this.state = {};
+            }
+            componentDidMount() {
+              $('#parttwo_ioio_web').css('minHeight',windowHeight);
+            }
+            render() {
+              return (
+                <div id="parttwo_ioio_web">
+                  <div className="parttwo_ioio_web_h">
+                    <h1 className="parttwo_ioio_web_h1">成功案例</h1>
+                    <h3 className="parttwo_ioio_web_h3">多年的软件定制经验，对市场的深入了解</h3>
+                  </div>
+                  <div className="parttwo_ioio_web_success">
+                  <div className="row">
+                    <div className="col-xs-12 col-sm-3 col-md-3 parttwo_ioio_web_padding">
+                      <div className="parttwo_ioio_web_success_img">
+                        <div className="parttwo_ioio_web_success_img_div">
+                          <img src="images/jialefulogo.jpg" />
+                        </div>
+                        <p>家乐福</p>
+                      </div>
+                      <p className="parttwo_ioio_web_success_word">
+                        家乐福外仓仓储物流系统解决了家乐福：品牌商与超市之间快速配合、
+                        品牌商根据家乐福集中的订单快速补货、仓库分班次不间断给家乐福
+                        店铺补 货与调拨、物流根据超市的订单及时送货到客户等。
+                      </p>
+                      <button className="parttwo_button">详情</button>
+                    </div>
+                    <div className="col-xs-12 col-sm-3 col-md-3 parttwo_ioio_web_padding">
+                      <div className="parttwo_ioio_web_success_img">
+                      <div className="parttwo_ioio_web_success_img_div">
+                        <img src="images/product_27.bmp" />
+                      </div>
+                        <p>汉普森英语</p>
+                      </div>
+                      <p className="parttwo_ioio_web_success_word">
+                      1 .销售前端系统，CRM系统，对接教务系统，泛微OA系统。
+
+                      2 .通过用户中心实现用户数据同步。
+
+                      3 .支撑全国27校区，数千员工的使用。
+                      </p>
+                      <button className="parttwo_button">详情</button>
+                    </div>
+
+                    <div className="clearfix visible-xs-block"></div>
+
+                    <div className="col-xs-12 col-sm-3 col-md-3 parttwo_ioio_web_padding">
+                      <div className="parttwo_ioio_web_success_img">
+                        <div className="parttwo_ioio_web_success_img_div">
+                          <img src="images/product_27.bmp" />
+                        </div>
+                        <p>PRBE</p>
+                      </div>
+                      <p className="parttwo_ioio_web_success_word">
+                        PRBE是典型出口转内销的企业，当时寻求品牌策划帮助时，
+                        其企业面临全国十大经销商挟制，年销额也只有2000多万，
+                        其企业发展前途处于风雨飘摇之中。由于企业决策者及时寻
+                        助专业品牌营销策划机构壹串通，当年销售额就增长速度超过150%。
+                      </p>
+                      <button className="parttwo_button">详情</button>
+                    </div>
+                    <div className="col-xs-12 col-sm-3 col-md-3 parttwo_ioio_web_padding">
+                      <div className="parttwo_ioio_web_success_img">
+                        <div className="parttwo_ioio_web_success_img_div">
+                          <img src="images/product_27.bmp" />
+                        </div>
+                        <p>PRBE</p>
+                      </div>
+                      <p className="parttwo_ioio_web_success_word">
+                        PRBE是典型出口转内销的企业，当时寻求品牌策划帮助时，
+                        其企业面临全国十大经销商挟制，年销额也只有2000多万，
+                        其企业发展前途处于风雨飘摇之中。由于企业决策者及时寻
+                        助专业品牌营销策划机构壹串通，当年销售额就增长速度超过150%。
+                      </p>
+                      <button className="parttwo_button">详情</button>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              );
+            }
+        };
+
+        class PartThree extends React.Component {
+            constructor(props) {
+              super(props);
+              // 初始化一个空对象
+              this.state = {};
+            }
+            componentDidMount() {
+              $('#partthree_ioio_web').css('height',windowHeight);
+            }
+            render() {
+              return (
+                <div id="partthree_ioio_web">
+                  <div className="partone_back"></div>
+                  <div className="partthree_ioio_web_word">
+                    <div className="partthree_ioio_web_word_one">
+                      <h1 className="partthree_ioio_web_word_one_title">公司文化</h1>
+                      <p className="partthree_ioio_web_one_word">创新、独特、专业</p>
+                    </div>
+                    <div className="partthree_ioio_web_word_two">
+                      <h1 className="partthree_ioio_web_word_two_title">创新</h1>
+                      <p className="partthree_ioio_web_two_word">
+                        用卓尔不群的智慧和力量实现客户的价值最大化。
+                      </p>
+                    </div>
+                    <div className="partthree_ioio_web_word_two">
+                      <h1 className="partthree_ioio_web_word_two_title">独创</h1>
+                      <p className="partthree_ioio_web_two_word">
+                        用卓尔不群的智慧和力量实现客户的价值最大化。
+                      </p>
+                    </div>
+                    <div className="partthree_ioio_web_word_two">
+                      <h1 className="partthree_ioio_web_word_two_title">专业</h1>
+                      <p className="partthree_ioio_web_two_word">
+                        用卓尔不群的智慧和力量实现客户的价值最大化。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+        };
+
+        class PartFour extends React.Component {
+            constructor(props) {
+              super(props);
+              // 初始化一个空对象
+              this.state = {};
+            }
+            componentDidMount() {
+              $('#partfour_ioio_web').css('height',windowHeight);
+            }
+            render() {
+              return (
+                <div id="partfour_ioio_web">
+                  <h1 className="partfour_ioio_web_word_title">新闻中心</h1>
+                </div>
+              );
+            }
+        };
+
+        class PartFive extends React.Component {
+            constructor(props) {
+              super(props);
+              // 初始化一个空对象
+              this.state = {};
+            }
+            componentDidMount() {
+              $('#partfive_ioio_web').css('minHeight',windowHeight);
+            }
+            render() {
+              return (
+                <div id="partfive_ioio_web">
+                  <h1 className="partfive_ioio_web_word_title">加入我们</h1>
+                  <p className="partfive_ioio_web_word_word">
+                    你希望尝试一些新的东西——新的挑战、更大的责任，
+                    或者在现有的职业发展道路再进一步，<br/>KPG能够提供
+                    众多机会。我们能够为积极进取、富有才华的员工提
+                    供岗位轮换和海外工作机会。如果您对KPG的职位机
+                    会感兴趣，可以点击浏览我们的招聘官网，查看并申
+                    请相应的职位机会。
+                  </p>
+                  <div className="partfive_ioio_web_ours">
+                    <div className="row">
+                      <div className="col-xs-12 col-sm-3 col-md-3 parttwo_ioio_web_padding">
+                        <div className="parttwo_ioio_web_success_img">
+                          <div className="partfive_ioio_web_success_img_div">
+                            <img src="images/jialefulogo.jpg" />
+                          </div>
+                          <p>家乐福</p>
+                        </div>
+                        <p className="parttwo_ioio_web_success_word">
+                          家乐福外仓仓储物流系统解决了家乐福：品牌商与超市之间快速配合、
+                          品牌商根据家乐福集中的订单快速补货、仓库分班次不间断给家乐福
+                          店铺补 货与调拨、物流根据超市的订单及时送货到客户等。
+                        </p>
+                        <button className="parttwo_button">详情</button>
+                      </div>
+
+                      <div className="col-xs-12 col-sm-3 col-md-3 parttwo_ioio_web_padding">
+                        <div className="parttwo_ioio_web_success_img">
+                          <div className="partfive_ioio_web_success_img_div">
+                            <img src="images/jialefulogo.jpg" />
+                          </div>
+                          <p>家乐福</p>
+                        </div>
+                        <p className="parttwo_ioio_web_success_word">
+                          家乐福外仓仓储物流系统解决了家乐福：品牌商与超市之间快速配合、
+                          品牌商根据家乐福集中的订单快速补货、仓库分班次不间断给家乐福
+                          店铺补 货与调拨、物流根据超市的订单及时送货到客户等。
+                        </p>
+                        <button className="parttwo_button">详情</button>
+                      </div>
+
+                      <div className="col-xs-12 col-sm-3 col-md-3 parttwo_ioio_web_padding">
+                        <div className="parttwo_ioio_web_success_img">
+                          <div className="partfive_ioio_web_success_img_div">
+                            <img src="images/jialefulogo.jpg" />
+                          </div>
+                          <p>家乐福</p>
+                        </div>
+                        <p className="parttwo_ioio_web_success_word">
+                          家乐福外仓仓储物流系统解决了家乐福：品牌商与超市之间快速配合、
+                          品牌商根据家乐福集中的订单快速补货、仓库分班次不间断给家乐福
+                          店铺补 货与调拨、物流根据超市的订单及时送货到客户等。
+                        </p>
+                        <button className="parttwo_button">详情</button>
+                      </div>
+
+                      <div className="col-xs-12 col-sm-3 col-md-3 parttwo_ioio_web_padding">
+                        <div className="parttwo_ioio_web_success_img">
+                          <div className="partfive_ioio_web_success_img_div">
+                            <img src="images/jialefulogo.jpg" />
+                          </div>
+                          <p>家乐福</p>
+                        </div>
+                        <p className="parttwo_ioio_web_success_word">
+                          家乐福外仓仓储物流系统解决了家乐福：品牌商与超市之间快速配合、
+                          品牌商根据家乐福集中的订单快速补货、仓库分班次不间断给家乐福
+                          店铺补 货与调拨、物流根据超市的订单及时送货到客户等。
+                        </p>
+                        <button className="parttwo_button">详情</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+        };
+
+        class PartSix extends React.Component {
+            constructor(props) {
+              super(props);
+              // 初始化一个空对象
+              this.state = {};
+            }
+            componentDidMount() {
+              $('#partsix_ioio_web').css('height',windowHeight);
+            }
+            render() {
+              return (
+                <div id="partsix_ioio_web">
+                  <div className="partone_back"></div>
+                  <div className="partsix_ioio_web_word">
+                    <h1 className="partsix_ioio_web_word_title">联系我们</h1>
+                    <p className="partsix_ioio_web_word_kouhao">赶紧联系我们吧。和我们一起，激发无限创造力</p>
+                    <p className="partsix_ioio_web_word_infor">地址：上海市宝山区呼兰路911弄11号博济智汇园3号楼 </p>
+                    <p className="partsix_ioio_web_word_infor">电话：021-60489399 021-60480475 </p>
+                    <p className="partsix_ioio_web_word_infor">传真：021-36521217 </p>
+                    <p className="partsix_ioio_web_word_infor">邮编：200431 </p>
+                    <p className="partsix_ioio_web_word_infor">网址：http://www.ioioinfo.com</p>
+                  </div>
+                </div>
+              );
+            }
+        };
+
+        ReactDOM.render(
+          <IoIo/>,
+          document.getElementById("ioio_web")
+        );
+      </script>
+
+      <script type="text/javascript">
+         $(function(){
+           $(window).scroll(function(){
+             var partone_ioio_web = ('#partone_ioio_web');
+             var objPartone_ioio_web = partone_ioio_web[0];
+
+           })
+
+         })
+      </script>
+  </body>
+</html>

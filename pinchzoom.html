@@ -1,0 +1,53 @@
+
+<!DOCTYPE HTML PUBLIC>
+<html>
+<head>
+    <title>Pinchzoom.js Demo</title>
+
+    <style type="text/css">
+        div.pinch-zoom,
+        div.pinch-zoom img{
+            width: 100%;
+            -webkit-user-drag: none;
+        }
+
+    </style>
+    <link rel="stylesheet" href="./css/stylezoom.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <!-- pinchzoom requires: jquery -->
+    <script type="text/javascript" src="./js/swipe.js"></script>
+    <script type="text/javascript" src="./js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="./js/pinchzoom.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('div.pinch-zoom').each(function () {
+                new RTP.PinchZoom($(this), {});
+            });
+
+            window.mySwipe = new Swipe(document.getElementById('slider'), {
+                speed: 400
+            });
+        })
+
+    </script>
+</head>
+<body>
+    <div class="page">
+        <div id='slider'>
+            <ul>
+                <li >
+
+                    <div class="pinch-zoom">
+                        <img src="images/flash1.png"/>
+
+                    </div>
+
+                </li>
+            </ul>
+
+    </div>
+
+</body>
+</html>
