@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>婉转照片</title>
+    <script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <style media="screen">
+      *{
+        padding: 0;
+        margin: 0;
+      }
+      #blur_img{
+        display: block;
+        margin:  0 auto;
+        -webkit-filter: blur(20px);
+           -moz-filter: blur(20px);
+            -ms-filter: blur(20px);
+             -o-filter: blur(20px);
+                filter: blur(20px);
+        position: absolute;
+        top: 0;
+        left: 0;
+
+      }
+      #blur_div{5
+        margin: 0 auto;
+        position: relative;
+        z-index: 0;
+        overflow: hidden;
+      }
+      #canvas{
+        display: block;
+        margin: 0 auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+      }
+      .button{
+        display: block;
+        position: absolute;
+        z-index: 200;
+
+        width: 100px;
+        height: 30px;
+
+        color: #fff;
+        text-decoration: none;
+        text-align: center;
+        line-height: 30px;
+
+        border-radius: 5px;
+      }
+      #reset_button{
+        left: 50px;
+        bottom: 20px;
+        background: #058;
+      }
+      #reset_button:hover{
+        background: #047;
+      }
+      #show_button{
+        right: 50px;
+        bottom: 20px;
+        background: #085;
+      }
+      #show_button:hover{
+        background: #074;
+      }
+    </style>
+  </head>
+  <body>
+    <div ID="blur_div">
+      <img id='blur_img' src="images/canvas1.jpg" alt="">
+      <canvas id="canvas"></canvas>
+      <a href="javascript:reset()" class="button"  id="reset_button">Reset</a>
+      <a href="javascript:show()"  class="button" id="show_button">Show</a>
+    </div>
+    <script type="text/javascript">
+      var canvasWidth = window.innerWidth;;
+      var canvasHeight = window.innerHeight;
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+
+      var image = new Image();
+      var radius = 50;
+      var blurLeft = 0;
+      var blurTop = 0;
+      var clippingRegion = {x: -1, y: -1, r: radius};
+      image.src = 'images/canvas1.jpg';
+      console.log(image);
+      image.onload = function(e){
+        $('#blur_div').css('width',canvasWidth+'px')
+        $('#blur_div').css('height',canvasHeight+'px')
+
+        $('#blur_img').css('width',canvasWidth+'px')
+        $('#blur_img').css('height',canvasHeight+'px')
+
+        blurLeft = (image.width - canvas.width)/2;
+        blurTop = (image.height - canvas.height)/2;
+
+        $('#blur_img').css('top' , '-'+ blurTop +'px');
+        $('#blur_img').css('left' , '-'+ blurLeft +'px');
+
+        initCanvas();
+      }
+
+      function initCanvas(){
+        clippingRegion = {x: Math.random()*(canvas.width - 2 * radius)+radius,
+                          y: Math.random()*(canvas.height - 2 * radius)+radius, r: radius};
+        draw(image , clippingRegion);
+      }
+
+      function setClippingRegion(clippingRegion){
+        context.beginPath();
+        context.arc(clippingRegion.x , clippingRegion.y , clippingRegion.r , 0 , 2*Math.PI , false );
+        context.clip();
+      }
+
+      function draw(image , clippingRegion){
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.save();
+        setClippingRegion(clippingRegion);
+        context.drawImage(image , 0, 0, canvasWidth, canvasHeight);
+        context.restore();
+      }
+
+      function show(){
+        var theAnimation = setInterval(
+          function(){
+            clippingRegion.r += 20;
+            if(clippingRegion.r > 2*Math.max(canvas.width,canvas.height)){
+              clearInterval(theAnimation);
+            }
+            draw(image , clippingRegion);
+          },
+          30
+        )
+      }
+
+      function reset(){
+        initCanvas();
+      }
+
+
+
+    </script>
+  </body>
+</html>
