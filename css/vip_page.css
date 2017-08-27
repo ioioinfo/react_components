@@ -1,0 +1,15 @@
+.vipPage_middle{
+  width: 100%;
+  background: #fff;
+  padding-top: 50px;
+  padding-bottom: 27%;
+}
+.vipPage_middle_cardimg{
+  width: 86.388%;
+  margin: 0 auto;
+
+}
+.vipPage_middle_cardimg img{
+  width: 100%;
+  border-radius: 8px;
+}

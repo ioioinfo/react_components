@@ -142,7 +142,7 @@
 
         context.fill();
         context.stroke();
-
+        music.play('audioId');
         var winner = win();
         if (winner != 0) {
           alert(winner+'赢了');
@@ -175,12 +175,27 @@
         return 0;
       }
 
+      function music(){
+        var music = Music({"audio_container":"canvas"});
+
+        music.registerSound('music.mp3','audioId');
+      }
+
       canvas.addEventListener("mousedown",dotBlack);
 
       window.onload = function(){
         allWin();
         qipan();
+        music();
       }
+
+
+    </script>
+
+    <script type="text/javascript">
+      $(function(){
+
+      })
     </script>
   </body>
 </html>
