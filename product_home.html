@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>订货首页</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/weui.css">
+        <link rel="stylesheet" href="css/newflash.css">
+        <link rel="stylesheet" href="css/product_home.css">
+
+        <script src="js/react.min.js"></script>
+        <script src="js/react-dom.min.js"></script>
+        <script src="js/browser.min.js"></script>
+
+        <script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js"></script>
+
+    </head>
+    <body>
+      <div id="product"></div>
+
+      <script type="text/babel">
+
+        // 框架
+        class Wrap extends React.Component {
+          componentDidMount() {
+          }
+          render() {
+            return (
+                <div className="product_home">
+                  <div className="lunbo" id="lunbo"></div>
+                  <ProductNav/>
+                </div>
+            );
+          }
+        };
+
+        // 菜单
+        class ProductNav extends React.Component {
+          componentDidMount() {
+            var product_nav_list_width = $('.product_nav_list').width();
+            $('.product_nav_list').css('height',product_nav_list_width/2);
+          }
+          render() {
+            return (
+                <div className="product_nav">
+                  <div className="product_nav_list">
+                    <h1 className="qipao_title">「旗 袍」</h1>
+                    <ul className="qipao_wrap">
+                      <li>
+                        <img src="img/qipao_1.jpg" />
+                        <p className="qipao_price">
+                          <span className="pull-left price_style">￥399.00</span>
+                          <span className="pull-right buy_style">立即定制</span>
+                        </p>
+                      </li>
+                      <li>
+                        <img src="img/qipao_2.jpg" />
+                        <p className="qipao_price">
+                          <span className="pull-left price_style">￥399.00</span>
+                          <span className="pull-right buy_style">立即定制</span>
+                        </p>
+                      </li>
+                      <li>
+                        <img src="img/qipao_3.jpg" />
+                        <p className="qipao_price">
+                          <span className="pull-left price_style">￥399.00</span>
+                          <span className="pull-right buy_style">立即定制</span>
+                        </p>
+                      </li>
+                      <li>
+                        <img src="img/qipao_4.jpg" />
+                        <p className="qipao_price">
+                          <span className="pull-left price_style">￥399.00</span>
+                          <span className="pull-right buy_style">立即定制</span>
+                        </p>
+                      </li>
+                      <li>
+                        <img src="img/qipao_5.jpg" />
+                        <p className="qipao_price">
+                          <span className="pull-left price_style">￥399.00</span>
+                          <span className="pull-right buy_style">立即定制</span>
+                        </p>
+                      </li>
+                      <li>
+                        <img src="img/qipao_6.jpg" />
+                        <p className="qipao_price">
+                          <span className="pull-left price_style">￥399.00</span>
+                          <span className="pull-right buy_style">立即定制</span>
+                        </p>
+                      </li>
+                      <li>
+                        <img src="img/qipao_7.jpg" />
+                        <p className="qipao_price">
+                          <span className="pull-left price_style">￥399.00</span>
+                          <span className="pull-right buy_style">立即定制</span>
+                        </p>
+                      </li>
+                      <li>
+                        <img src="img/qipao_8.jpg" />
+                        <p className="qipao_price">
+                          <span className="pull-left price_style">￥399.00</span>
+                          <span className="pull-right buy_style">立即定制</span>
+                        </p>
+                      </li>
+                    </ul>
+                    <div className="chuiniubi">珍藏</div>
+                    <div className="qipao_ad"><img src="img/qipao_9.jpg"/></div>
+                  </div>
+                </div>
+            );
+          }
+        };
+
+        // 返回到页面
+        ReactDOM.render(
+          <Wrap/>,
+          document.getElementById("product")
+        );
+      </script>
+
+      <script src="js/newflash_v1.1.min.js"></script>
+      <script type="text/javascript">
+          window.onload=function(){
+            // 返回到页面
+            var images = [
+                {id:1,img:'images/90_a.jpg',href:'#'}
+                ,{id:2,img:'images/90_b.jpg',href:'#'}
+                ,{id:3,img:'images/90_a.jpg',href:'#'}
+                ,{id:4,img:'images/90_b.jpg',href:'#'}
+            ];
+            var items = [];
+            for (var i = 0; i < images.length; i++) {
+               items.push({id:i,img:images[i].img});
+            }
+            console.log(items);
+            ReactDOM.render(React.createElement(Lunbo, { items: items, rate:356/375 }), document.getElementById('lunbo'));
+          }
+      </script>
+    </body>
+</html>

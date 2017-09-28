@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>柱状图</title>
+    <script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <style media="screen">
+      html{
+        height: 100%;
+      }
+      body{
+        height: 100%;
+        background: url(images/libai.jpg)no-repeat center center;
+        background-size: auto;
+      }
+      #histogram{
+        margin: 0 auto;
+        text-align: center;
+        padding-top: 70px;
+      }
+      #canvas{
+        background: #28516D;
+        z-index: 99;
+        background: rgba(0, 0, 0, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="histogram">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <script type="text/javascript">
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    var canvasWidth = 800;
+    var canvasHeigh = canvasWidth / 2;
+
+    var windowWidth = window.innerWidth;
+    if (windowWidth <= 768 ) {
+      canvasWidth = 0.9 *windowWidth;
+    }
+
+    canvas.width= canvasWidth;
+    canvas.height = canvasHeigh;
+    var hengzuobiao = [];
+
+    var heroDatas = ['花木兰', '李元芳', '孙悟空', '鲁班七号', '张良', '安其拉', '姜子牙', '凯', ];
+    var winRateDatas = [72, 77, 75, 38, 40, 80, 100, 50];
+    // 画布左下右内边距
+    var histogramPadding = 40;
+    // 画布上部内边距
+    var histogramPaddingTop = 30;
+    // y轴部分
+    // y轴数据最大值
+    var maxNumber_y = 100;
+    // y轴坐标点个数
+    var pointNumber_y= 10;
+    // y轴多出部分留出长度
+    var liuchuTop_y = 20;
+    var liuchuBottom_y = 10;
+    // y轴的长度
+    var length_y = canvas.height - 2 *histogramPadding + 2 *liuchuBottom_y;
+    // y轴实际展示数据的有效长度
+    var youxiao_y = length_y - liuchuTop_y -  liuchuBottom_y;
+    // y轴数据比例
+    var yZhouBiLi = youxiao_y / maxNumber_y;
+    console.log(yZhouBiLi);
+    // y轴终点坐标
+    var y_ZhouEnd = [histogramPadding, histogramPaddingTop];
+
+    // y轴起点坐标
+    var y_ZhouStare = [histogramPadding, histogramPaddingTop + length_y];
+
+    // x轴部分
+    // x轴左边多出部分
+    var liuchuLeft_x = 10;
+    // x留出右边部分
+    var liuchuRight_x = 20;
+    // x轴长度
+    var length_x = canvasWidth - 2 *histogramPadding + liuchuLeft_x;
+
+    // x轴实际展示数据的有效长度
+    var youxiao_x = length_x - liuchuLeft_x - liuchuRight_x;
+
+    // x轴起点坐标
+    var x_ZhouStare = [histogramPadding, histogramPaddingTop + length_y - liuchuBottom_y];
+    // x轴终点坐标
+    var x_ZhouEnd = [canvasWidth - histogramPadding, histogramPaddingTop + length_y - liuchuBottom_y];
+    // 坐标轴
+    function drawBorder(){
+      ctx.save();
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(y_ZhouEnd[0], y_ZhouEnd[1]);
+      ctx.lineTo(y_ZhouEnd[0], y_ZhouStare[1]);
+      ctx.moveTo(x_ZhouStare[0], x_ZhouStare[1]);
+      ctx.lineTo(x_ZhouEnd[0], x_ZhouEnd[1]);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.restore();
+    }
+    // 三角形、
+    function sanjiaoxing(){
+      ctx.save();
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(histogramPadding - 6, histogramPaddingTop + 8);
+      ctx.lineTo(histogramPadding, histogramPaddingTop);
+      ctx.lineTo(histogramPadding + 6, histogramPaddingTop + 8);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(x_ZhouEnd[0] - 8, x_ZhouEnd[1] - 6);
+      ctx.lineTo(x_ZhouEnd[0], x_ZhouEnd[1]);
+      ctx.lineTo(x_ZhouEnd[0] - 8, x_ZhouEnd[1] + 6);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // 横坐标数据
+    function hengBroken(){
+      ctx.save();
+
+      var hengY = x_ZhouEnd[1] + 20;
+      for (var i = 0; i < heroDatas.length; i++) {
+        var heroName = heroDatas[i];
+        var textWidth = ctx.measureText(heroName).width/2;
+        var hengX = (i +1) *youxiao_x/heroDatas.length + histogramPadding;
+        hengzuobiao.push(hengX);
+        var lastHengX = hengX - textWidth;
+        ctx.fillStyle = '#fff';
+        ctx.strokeStyle = 'red';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        // ctx.moveTo(hengX, 360);
+        // ctx.lineTo(hengX, 365);
+        ctx.fillText(heroName, lastHengX, hengY);
+        ctx.stroke();
+        ctx.fill();
+      }
+    }
+
+    // 纵坐标数据
+    function zongBroken(){
+      ctx.save();
+      var zongX = histogramPadding;
+      var numY = 0;
+      ctx.textAlign = 'end';
+      ctx.strokeStyle = '#fff';
+      ctx.fillStyle = '#fff';
+      for (var i = 0; i < (pointNumber_y + 1); i++) {
+        zongY = youxiao_y - i* youxiao_y/pointNumber_y + histogramPaddingTop + liuchuTop_y;
+        numY = i *pointNumber_y;
+        // 横坐标展示数据线
+        ctx.moveTo(histogramPadding - 5, zongY);
+        ctx.lineTo(40, zongY);
+        ctx.fillText(numY +'%', zongX - liuchuLeft_x, zongY);
+        ctx.stroke();
+        ctx.fill();
+      }
+      ctx.restore();
+
+    }
+
+    // 现在开始画柱子
+    function draw_zhuZi(){
+      ctx.save();
+      for (var i = 0; i < winRateDatas.length; i++) {
+        var zhuZiStarX = hengzuobiao[i];
+        var zhuZiStarY = x_ZhouEnd[1];
+        var zhuZiEndX = hengzuobiao[i];
+        var zhuZiEndY = x_ZhouEnd[1] -yZhouBiLi *winRateDatas[i];
+        ctx.lineWidth = 20;
+        ctx.strokeStyle = '#E2A226';
+        ctx.beginPath();
+        ctx.moveTo(zhuZiStarX, zhuZiStarY);
+        ctx.lineTo(zhuZiEndX , zhuZiEndY);
+        ctx.fillText(winRateDatas[i] +'%', zhuZiEndX -5, zhuZiEndY -5);
+        ctx.stroke();
+      }
+    }
+    window.onload = function(){
+      drawBorder();
+      sanjiaoxing();
+      hengBroken();
+      zongBroken();
+      draw_zhuZi();
+    }
+    </script>
+  </body>
+</html>

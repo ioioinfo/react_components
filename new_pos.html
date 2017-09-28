@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>收银</title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/new_pos.css">
+    <script src="js/react.min.js"></script>
+    <script src="js/react-dom.min.js"></script>
+    <script src="js/browser.min.js"></script>
+    <script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
+
+  </head>
+  <body>
+    <div id="pos"></div>
+    <script type="text/javascript">
+      var rightTopHeight = "";
+    </script>
+    <script type="text/babel">
+    // 收银页面框架
+    class Pos_wrap extends React.Component {
+      constructor(props) {
+        super(props);
+        this.handleClick=this.handleClick.bind(this);
+      }
+      handleClick(e){
+        $('.background').hide();
+      }
+      render() {
+        return (
+          <div className="Pos_wrap">
+            <Pos_top/>
+            <Pos_Middle/>
+            <Pos_Bottom/>
+            <div className="background" onClick={this.handleClick}></div>
+          </div>
+        );
+      }
+    };
+
+    // 收银头部
+    class Pos_top extends React.Component {
+      render() {
+        return (
+          <div className="pos_top overflow_hidden">
+            <div className="pull-left overflow_hidden vip_infor">
+              <span>会员信息</span>
+              <span><i>姓名</i> ：周周洲</span>
+              <span><i>手机</i> ：17621140956</span>
+              <span><i>卡号</i> ： 123124234235</span>
+              <span><i>积分</i> ： 5000</span>
+            </div>
+
+            <div className="pull-right"><i className="fa fa-user"></i></div>
+          </div>
+        );
+      }
+    };
+    // 收银底部
+    class Pos_Middle extends React.Component {
+      constructor(props) {
+        super(props);
+        this.handleClick=this.handleClick.bind(this);
+      }
+      componentDidMount() {
+        var posHeight = $('#pos').height();
+        var posTop = $('.pos_top').height();
+        var posBottom = $('.pos_bottom').height();
+        var posMiddle = posHeight - posTop - posBottom - 40;
+        var productNmaeHeight = $('.product_name').height();
+
+        var rightMiddleHeight = $('.pos_statistics ').height();
+        var rightBottomHeight = $('.jiesuan').height();
+        var leftPosProHeight = posMiddle - 135;
+        rightTopHeight = posMiddle - rightMiddleHeight - rightBottomHeight - 70;
+        $('.pos_middle').css('height',posMiddle);
+        $('.product_back1').css('height',productNmaeHeight);
+        $('#broken_line').css('height',rightTopHeight);
+        $('.jiesuan_input').focus();
+        $('.pos_middle_left').css('height',posMiddle);
+        $('.pos_left_product').css('height',leftPosProHeight);
+
+      }
+
+      handleClick(e){
+        $('.background').show();
+      }
+      render() {
+        return (
+          <div className="pos_middle overflow_hidden">
+            <div className="pos_middle_left col-md-8 col-sm-8">
+              <div className="pos_left_product">
+                <div className="pos_middle_left_box col-md-3 col-sm-3">
+                  <div className="pos_middle_left_box_img">
+                    <img src="images/bangdi.jpg"/>
+                    <div className="product_delect"><i className="fa fa-trash-o"></i></div>
+                    <div className="product_back"></div>
+                    <div className="product_back1"></div>
+                    <div className="product_name">这个商品的名字有点长，够不够，够不够</div>
+                  </div>
+                  <div className="product_infor overflow_hidden">
+                    <p className="pull-left">360.00</p>
+                    <p className="pull-right">X 1</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pos_menu overflow_hidden">
+                <div className="pos_menu_infor"><i className="fa fa-user" onClick={this.handleClick}></i><br/>会员卡</div>
+                <div className="pos_menu_infor"><i className="fa fa-wpforms"></i><br/>挂单</div>
+                <div className="pos_menu_infor"><i className="fa fa-file"></i><br/>取单</div>
+                <div className="pos_menu_infor"><i className="fa fa-close"></i><br/>作废</div>
+                <div className="pos_menu_infor"><i className="fa fa-lock"></i><br/>钱柜</div>
+              </div>
+            </div>
+            <div className="pos_middle_right col-md-4 col-sm-4">
+              <div id="broken_line">
+                <canvas id="canvas"></canvas>
+              </div>
+
+              <div className="pos_statistics overflow_hidden">
+                <div className="col-sm-6 pos_statistics_style"><div className="pos_statistics_style_infor">订单数 : ￥2000</div></div>
+                <div className="col-sm-6 pos_statistics_style"><div className="pos_statistics_style_infor">件数 : ￥2000</div></div>
+                <div className="col-sm-6 pos_statistics_style"><div className="pos_statistics_style_infor">营业额 : ￥2000</div></div>
+                <div className="col-sm-6 pos_statistics_style"><div className="pos_statistics_style_infor">现金 : ￥2000</div></div>
+                <div className="col-sm-6 pos_statistics_style"><div className="pos_statistics_style_infor">会员卡 : ￥2000</div></div>
+                <div className="col-sm-6 pos_statistics_style"><div className="pos_statistics_style_infor">支付宝 : ￥2000</div></div>
+                <div className="col-sm-6 pos_statistics_style"><div className="pos_statistics_style_infor">找零 : ￥2000</div></div>
+              </div>
+
+              <div className="jiesuan overflow_hidden">
+                <p className="jiesuan_p1"><input type="text" className="jiesuan_input" /></p>
+                <p className="jiesuan_p2">结算 ： 3000.00</p>
+              </div>
+            </div>
+          </div>
+        );
+      }
+    };
+    // 收银底部
+    class Pos_Bottom extends React.Component {
+      render() {
+        return (
+          <div className="pos_bottom overflow_hidden">
+            <div className="pos_bottom_infor">
+              <p>佑佑收银平台</p>
+              <p>联系电话 ： 16721140956</p>
+              <p>操作员 ： admin</p>
+              <p>时间 ： 2017/9/4</p>
+            </div>
+          </div>
+        );
+      }
+    };
+      // 返回到页面
+      ReactDOM.render(
+        <Pos_wrap/>,
+        document.getElementById("pos")
+      );
+    </script>
+
+    <script src="js/broken_line.js"></script>
+    <script type="text/javascript">
+
+      window.onload = function(){
+        var prointDatas = [20, 40, 80, 30, 70, 20, 90];
+        var prointDatas1 = [70, 40, 20, 90, 50, 30, 70];
+        var color = '#FF8F2F';
+        var color1 = '#24B2E0';
+        var canvasWidth = $('#broken_line').width();
+        var options = {"data":[{"prointDatas":prointDatas,"color":color}
+          ,{"prointDatas":prointDatas1,"color":color1}],"yzhouMaxNum":100,canvasWidth:canvasWidth,
+          rightTopHeight:rightTopHeight};
+
+        brokenLine.init(options);
+        brokenLine.drowBroken_line(options);
+      }
+    </script>
+  </body>
+</html>

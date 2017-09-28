@@ -7,11 +7,13 @@
     <script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
     <style media="screen">
       #broken_line{
+        width: 700px;
         text-align: center;
         padding-top: 70px;
+        margin:0 auto;
       }
       #canvas{
-        background: green;
+        background: #28516D;
       }
     </style>
   </head>
@@ -23,39 +25,77 @@
     <script type="text/javascript">
       var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext('2d');
-      var canvasWidth = 600;
-      var canvasHeight = 400;
+      var canvasWidth = $('#broken_line').width();
+      var canvasHeight = canvasWidth/2;
+      var windowWidth = window.innerWidth;
+      var windowHeight = window.innerHeight;
+      if (windowWidth <= 768 ) {
+        canvasWidth = 0.9*windowWidth;
+        windowHeight = canvasWidth/2;
+      }
+
       canvas.width= canvasWidth;
       canvas.height = canvasHeight;
       var brokenDatas = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
-      var prointDatas = [20, 40, 80, 30, 70, 20, 90, 40, 70, 50, 10,70];
+      // Y轴数据个数
+      var yNumber = 10;
+      // 存放数据x坐标
       var Heng = [];
+      // var 坐标轴边距
+      var zhouMargin = 40;
+      var yZhouBeyondTop = 10;
+      var yZhouBeyondBottom = 20;
+      var xZhouBeyondRight = 10;
+      var xZhouBeyondLeft = 20;
+      // 横坐标展示数据线
+      var xLineLength = 5;
+      // 数据距离坐标轴距离
+      var wordLength = 10;
+      // var x轴坐标
+      var xZhouStar = [zhouMargin, zhouMargin];
+      var xZhouEnd = [zhouMargin, canvasHeight - zhouMargin];
+      // y轴长队
+      var yLength = canvasHeight - 2* zhouMargin;
+      // y轴数据显示有效长度
+      var yLength_effective = yLength  - yZhouBeyondTop -yZhouBeyondBottom;
+
+      // x轴长度
+      var xLength = canvasWidth - 2* zhouMargin + xZhouBeyondLeft;
+      // x轴数据显示的有效长度
+      var xLength_effective = xLength - xZhouBeyondLeft - xZhouBeyondRight;
+
+      // y轴数据最大值
+      var yzhouMaxNum = 100;
+      // y轴数据的比例
+      var yZhouBiLi = yLength_effective / yzhouMaxNum;
       // 坐标轴
       function drawBorder() {
         ctx.save();
+        ctx.strokeStyle='#fff';
         ctx.beginPath();
-        ctx.moveTo(40, 40);
-        ctx.lineTo(40, 360);
-        ctx.moveTo(20, 340);
-        ctx.lineTo(560, 340);
+        ctx.moveTo(xZhouStar[0], xZhouStar[1]);
+        ctx.lineTo(xZhouEnd[0], xZhouEnd[1]);
+        ctx.moveTo(zhouMargin - xZhouBeyondLeft, yLength +zhouMargin -yZhouBeyondBottom);
+        ctx.lineTo(canvasWidth - zhouMargin, yLength +zhouMargin -yZhouBeyondBottom);
         ctx.closePath();
         ctx.stroke();
-        ctx.restore();
       }
 
       // 纵坐标数据
       function zongBroken(){
         ctx.save();
-        var zongX = 30;
-        var zongY = 340;
+        var zongX = zhouMargin - xLineLength;
+        var zongY = yLength +zhouMargin -yZhouBeyondBottom;
         var numY = 0;
         ctx.textAlign = 'end';
-        for (var i = 0; i < 11; i++) {
-          zongY = 340 - i* 290/10;
-          numY = i* 10;
-          ctx.moveTo(35, zongY)
-          ctx.lineTo(40, zongY)
-          ctx.fillText(numY, zongX, zongY);
+        ctx.fillStyle = '#fff';
+        for (var i = 0; i < yNumber +1; i++) {
+          zongY = yLength +zhouMargin -yZhouBeyondBottom - i* yLength_effective/yNumber;
+          numY = i* yNumber;
+          // 横坐标展示数据线
+          ctx.moveTo(zhouMargin - xLineLength, zongY)
+          ctx.lineTo(zhouMargin, zongY)
+          ctx.fillText(numY, zongX - wordLength, zongY);
           ctx.stroke();
           ctx.fill();
         }
@@ -67,35 +107,39 @@
       function hengBroken(){
         ctx.save();
 
-        var hengY = 370;
+        var hengY = yLength + yZhouBeyondBottom + wordLength +zhouMargin -yZhouBeyondBottom;
         for (var i = 0; i < brokenDatas.length; i++) {
           var monthNum = brokenDatas[i];
           var textWidth = ctx.measureText(monthNum).width/2;
 
-          var hengX = 40 + (i +1 )* 510/12;
+          var hengX = zhouMargin + (i +1 )* xLength_effective/brokenDatas.length;
 
           var lastHengX = hengX - textWidth;
-          Heng.push(lastHengX)
-          ctx.moveTo(hengX, 340);
-          ctx.lineTo(hengX, 345);
+          Heng.push(hengX)
+          ctx.moveTo(hengX, canvasHeight - zhouMargin - yZhouBeyondBottom);
+          ctx.lineTo(hengX, canvasHeight - zhouMargin - yZhouBeyondBottom + xLineLength);
+          ctx.fillStyle = '#fff';
           ctx.fillText(monthNum, lastHengX, hengY);
           ctx.stroke();
           ctx.fill();
         }
       }
-
-      function dot(){
+      // 折线图点坐标
+      function dot(prointDatas, color){
         ctx.save();
         for (var i = 0; i < prointDatas.length; i++) {
           var dotX =  Heng[i];
-          var dotY = 290 - prointDatas[i];
+          var prointData = prointDatas[i];
+          var dotY = canvasHeight - zhouMargin - yZhouBeyondBottom - yZhouBiLi*prointDatas[i];
           var dotX1 =  Heng[i+1];
-          var dotY1 = 290 - prointDatas[i+1];
+          var dotY1 = canvasHeight - zhouMargin - yZhouBeyondBottom - yZhouBiLi*prointDatas[i+1];
           ctx.beginPath();
-          ctx.fillStyle = 'red';
-          ctx.arc(dotX, dotY, 3, 0, 2*Math.PI);
+          ctx.fillStyle = '#E2A226';
+          ctx.strokeStyle=color;
+          ctx.lineWidth = 4;
           ctx.moveTo(dotX, dotY);
           ctx.lineTo(dotX1, dotY1);
+          ctx.fillText(prointData, dotX + 10, dotY + 10);
           ctx.stroke();
           ctx.fill();
         }
@@ -103,10 +147,16 @@
       }
 
       window.onload = function(){
+        var prointDatas = [20, 40, 80, 30, 70, 20, 90, 40, 70, 50, 10,70];
+        var prointDatas1 = [70, 40, 20, 90, 50, 30, 70, 60, 10, 70, 50,60];
+        var color = '#FF8F2F';
+        var color1 = '#24B2E0';
+
         drawBorder();
         zongBroken();
         hengBroken();
-        dot();
+        dot(prointDatas, color);
+        dot(prointDatas1, color1);
       }
     </script>
   </body>
